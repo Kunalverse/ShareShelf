@@ -1,6 +1,8 @@
 import React from "react";
+import { FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Header = ({ onSignIn, onSignUp, onSignOut, isAuthenticated }) => {
+const Header = ({ onSignIn, onSignUp, onSignOut, isAuthenticated, user }) => {
   return (
     <div className="flex bg-gray-900 px-3 py-2">
       <div className="m-2 mr-8 w-1/4">
@@ -10,32 +12,50 @@ const Header = ({ onSignIn, onSignUp, onSignOut, isAuthenticated }) => {
       </div>
       <div className="flex justify-between w-full">
         <ul className="flex text text-white">
-          <li className="m-2 pt-2">Home</li>
-          <li className="m-2 pt-2">DashBoard</li>
-          <li className="m-2 pt-2">About</li>
+          <Link to="/">
+            <li className="m-2 pt-1">Home</li>
+          </Link>
+          <Link to="/add-book">
+            <li className="m-2 pt-1">Add Book</li>
+          </Link>
+          <Link to="/about">
+            <li className="m-2 pt-1">About</li>
+          </Link>
         </ul>
-        <div className="flex">
+        <div className="flex items-center">
           {isAuthenticated ? (
-            <button
-              onClick={onSignOut}
-              className="m-2 bg-green-500 px-2 py-1 rounded-lg hover:scale-110"
-            >
-              Sign Out
-            </button>
-          ) : (
             <>
+              <div className="p-1 rounded-2xl bg-white m-2 mr-0 ">
+                <FaUser />
+              </div>
+              <div className="text-white m-2">
+                {user.username ? user.username : "undefined"}
+              </div>
               <button
-                onClick={onSignUp}
+                onClick={onSignOut}
                 className="m-2 bg-green-500 px-2 py-1 rounded-lg hover:scale-110"
               >
-                Sign Up
+                Sign Out
               </button>
-              <button
-                onClick={onSignIn}
-                className="m-2 text-green-500 px-2 py-1 rounded-lg hover:bg-gray-800"
-              >
-                Sign In
-              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/signup">
+                <button
+                  onClick={onSignUp}
+                  className="m-2 bg-green-500 px-2 py-1 rounded-lg hover:scale-110"
+                >
+                  Sign Up
+                </button>
+              </Link>
+              <Link to="/signin">
+                <button
+                  onClick={onSignIn}
+                  className="m-2 text-green-500 px-2 py-1 rounded-lg hover:bg-gray-800"
+                >
+                  Sign In
+                </button>
+              </Link>
             </>
           )}
         </div>

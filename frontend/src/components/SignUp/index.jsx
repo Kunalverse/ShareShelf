@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = ({ onAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate()
 
-  const handleSignUp = async(e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     if (!username || !email || !password) {
       setError("All fields are required.");
@@ -19,17 +21,21 @@ const SignUp = ({ onAuthenticated }) => {
       console.log("User signed up:", { username, email, password });
 
       try {
-        const response = await axios.post('http://localhost:8001/api/auth/signup', { username, email: email.toLowerCase(), password });
+        const response = await axios.post(
+          "http://localhost:8001/api/auth/signup",
+          { username, email: email.toLowerCase(), password }
+        );
         const { token } = response.data;
         onAuthenticated(token);
+        navigate('/')
       } catch (err) {
-        console.error('Error:', err);
+        console.error("Error:", err);
       }
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-300">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
