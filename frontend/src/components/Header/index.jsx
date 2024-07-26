@@ -2,7 +2,7 @@ import React from "react";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Header = ({ onSignIn, onSignUp, onSignOut, isAuthenticated, user }) => {
+const Header = ({ onSignOut, isAuthenticated, user }) => {
   return (
     <div className="flex bg-gray-900 px-3 py-2">
       <div className="m-2 mr-8 w-1/4">
@@ -42,7 +42,6 @@ const Header = ({ onSignIn, onSignUp, onSignOut, isAuthenticated, user }) => {
             <>
               <Link to="/signup">
                 <button
-                  onClick={onSignUp}
                   className="m-2 bg-green-500 px-2 py-1 rounded-lg hover:scale-110"
                 >
                   Sign Up
@@ -50,7 +49,6 @@ const Header = ({ onSignIn, onSignUp, onSignOut, isAuthenticated, user }) => {
               </Link>
               <Link to="/signin">
                 <button
-                  onClick={onSignIn}
                   className="m-2 text-green-500 px-2 py-1 rounded-lg hover:bg-gray-800"
                 >
                   Sign In

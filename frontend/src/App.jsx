@@ -29,21 +29,16 @@ function App() {
         email,
       });
       setIsAuthenticated(true);
-      setAuthState("loggedIn");
     }
   }, []);
 
-  const handleSignIn = () => setAuthState("signIn");
-  const handleSignUp = () => setAuthState("signUp");
   const handleSignOut = () => {
-    setAuthState("loggedOut");
     setIsAuthenticated(false);
     localStorage.removeItem("token");
   };
 
   const handleAuthenticated = (token) => {
     localStorage.setItem("token", token);
-    setIsAuthenticated(true);
     setAuthState("loggedIn");
   };
 
@@ -51,8 +46,6 @@ function App() {
     <>
       <Router>
         <Header
-          onSignIn={handleSignIn}
-          onSignUp={handleSignUp}
           onSignOut={handleSignOut}
           isAuthenticated={isAuthenticated}
           user={user}
